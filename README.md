@@ -30,7 +30,7 @@ _Symfony EasyAPI_ is licensed under MIT license. See LICENSE file.
 
 
 [ico-version]: https://img.shields.io/packagist/v/mediagone/symfony-easy-api.svg
-[ico-downloads]: https://img.shields.io/packagist/dt/symfony-easy-api.svg
+[ico-downloads]: https://img.shields.io/packagist/dt/mediagone/symfony-easy-api.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
 
 [link-packagist]: https://packagist.org/packages/mediagone/symfony-easy-api
