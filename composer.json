@@ -1,7 +1,7 @@
 {
     "name": "mediagone/symfony-easy-api",
     "type": "library",
-    "description": "Helps you to build Json API from plain Symfony controllers.",
+    "description": "Helps you to quickly build JSON API using plain Symfony controllers.",
     "keywords": ["json", "api", "symfony"],
     "license": "MIT",
     "authors": [
