@@ -1,0 +1,32 @@
+{
+    "name": "mediagone/symfony-easy-api",
+    "type": "library",
+    "description": "Helps you to build Json API from plain Symfony controllers.",
+    "keywords": ["json", "api", "symfony"],
+    "license": "MIT",
+    "authors": [
+        {"name": "Bruce Suire", "role": "Developer"}
+    ],
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Mediagone\\Symfony\\EasyApi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Mediagone\\Symfony\\EasyApi\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.4|^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.0"
+    },
+    "scripts": {
+        "tests": "phpunit -c phpunit.xml.dist --testsuite Unit_Tests"
+    }
+}
