@@ -11,9 +11,14 @@ use Throwable;
 final class ApiPayloadError500ServerError extends ApiPayloadError
 {
     
-    public static function create(Throwable $error) : self
+    public static function create(string $errorMessage) : self
     {
-        return new self('server_error', "Unexpected server error: {$error->getMessage()}", 500, 'server_error');
+        return new self('server_error', "Unexpected server error: $errorMessage", 500, 'server_error');
+    }
+    
+    public static function createFromException(Throwable $error) : self
+    {
+        return self::create($error->getMessage());
     }
     
 }
