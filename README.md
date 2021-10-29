@@ -6,10 +6,11 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 [![Software License][ico-license]](LICENSE)
 
-This package provides helper classes to easily build a Json API from plain _Symfony_ controllers :
+This package provides helper classes to build a Json API very easily from plain _Symfony_ controllers. \
+Supported features :
 - Single and Collection results
-- Custom filters
-- Pagination
+- Pagination for Collection results
+- Out of the box support for most useful status codes (200, 201, 202, 204, 400, 401, 403, 404, 405, 409, 410, 415, 422, 429, 500 and 501).
 
 
 
