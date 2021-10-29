@@ -5,6 +5,9 @@ namespace Mediagone\Symfony\EasyApi\Payloads;
 use Throwable;
 
 
+/**
+ * The server encountered an unexpected condition that prevented it from fulfilling the request.
+ */
 final class ApiPayloadError500ServerError extends ApiPayloadError
 {
     

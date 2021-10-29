@@ -2,13 +2,24 @@
 
 namespace Mediagone\Symfony\EasyApi\Payloads;
 
-use Mediagone\Symfony\EasyApi\Payloads\Results\ApiPagination;
 use Mediagone\Symfony\EasyApi\Payloads\Results\ApiResult;
 use Mediagone\Symfony\EasyApi\Payloads\Results\ApiResultCollection;
 use Mediagone\Symfony\EasyApi\Payloads\Results\ApiResultNull;
 use Mediagone\Symfony\EasyApi\Payloads\Results\ApiResultSingle;
 
 
+/*
+ * The request has succeeded.
+ * 
+ * The payload sent in a 200 response depends on the request method. For the methods defined by this specification, the
+ * intended meaning of the payload can be summarized as:
+ *    GET a representation of the target resource
+ *    HEAD the same representation as GET, but without the representation data
+ *    POST a representation of the status of, or results obtained from, the action;
+ *    PUT DELETE a representation of the status of the action;
+ *    OPTIONS a representation of the communications options;
+ *    TRACE a representation of the request message as received by the end server.
+ */
 final class ApiPayload200Success implements ApiPayload
 {
     //========================================================================================================
