@@ -23,6 +23,29 @@ $ composer require mediagone/symfony-easy-api
 ```
 
 
+## Introduction
+
+This package provides several classes to handle API requests and return structured JSON responses:
+
+- `ApiPayload200Success`
+- `ApiPayload201Created`
+- `ApiPayload202Accepted`
+- `ApiPayload204NoContent`
+- `ApiPayloadError400BadRequest`
+- `ApiPayloadError401Unauthorized`
+- `ApiPayloadError403Forbidden`
+- `ApiPayloadError404NotFound`
+- `ApiPayloadError405MethodNotAllowed`
+- `ApiPayloadError409Conflict`
+- `ApiPayloadError410Gone`
+- `ApiPayloadError415UnsupportedMediaType`
+- `ApiPayloadError422UnprocessableEntity`
+- `ApiPayloadError429TooManyRequests`
+- `ApiPayloadError500ServerError`
+- `ApiPayloadError501NotImplemented`
+
+
+
 ## Examples
 
 The easiest way to build an API controller is to use the `EasyApi` class that will do error handling for you, however you can do it by hand if you prefer.
