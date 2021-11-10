@@ -12,13 +12,13 @@ use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
 
-final class EasyApi
+class EasyApi
 {
     //========================================================================================================
     // Methods
     //========================================================================================================
     
-    public function response(callable $payloadGenerator) : Response
+    final public function response(callable $payloadGenerator) : Response
     {
         try {
             $payload = $payloadGenerator();
