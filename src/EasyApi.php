@@ -28,10 +28,10 @@ final class EasyApi
             }
         }
         catch (ApiBadRequestError $ex) {
-            $payload = ApiPayloadError400BadRequest::create($ex);
+            $payload = ApiPayloadError400BadRequest::createFromException($ex);
         }
         catch (Throwable $ex) {
-            $payload = ApiPayloadError500ServerError::create($ex);
+            $payload = ApiPayloadError500ServerError::createFromException($ex);
         }
         
         return new JsonResponse($payload->getData(), $payload->getCode());
