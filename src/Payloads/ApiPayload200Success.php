@@ -6,6 +6,7 @@ use Mediagone\Symfony\EasyApi\Payloads\Results\ApiResult;
 use Mediagone\Symfony\EasyApi\Payloads\Results\ApiResultCollection;
 use Mediagone\Symfony\EasyApi\Payloads\Results\ApiResultNull;
 use Mediagone\Symfony\EasyApi\Payloads\Results\ApiResultSingle;
+use Mediagone\Symfony\EasyApi\Request\ApiPagination;
 
 
 /*
@@ -52,9 +53,9 @@ final class ApiPayload200Success implements ApiPayload
     }
     
     
-    public static function createWithArrayResult(array $results) : self
+    public static function createWithArrayResult(array $results, ?ApiPagination $paginator = null) : self
     {
-        return new self(ApiResultCollection::create($results));
+        return new self(ApiResultCollection::create($results, $paginator));
     }
     
     
