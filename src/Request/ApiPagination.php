@@ -73,7 +73,7 @@ final class ApiPagination
         $this->itemsPerPage = $itemPerPage;
         $this->itemsCountTotal = $itemsCountTotal;
         $this->page = $page;
-        $this->pageCount = (int)ceil($itemsCountTotal / $this->itemsPerPage);
+        $this->pageCount = max(1, (int)ceil($itemsCountTotal / $this->itemsPerPage));
         $this->pageItemOffset = ($page - 1) * $itemPerPage;
         
         if ($page > $this->pageCount) {
