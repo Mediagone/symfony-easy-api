@@ -150,11 +150,69 @@ It will result in a slightly different JSON object:
             { "id": 2, "name": "Second thing" },
             { "id": 3, "name": "Third thing" }
         ],
-        "resultsCount": 3
+        "resultsCount": 3,
+        "resultsCountTotal": 3,
+        "page": 1,
+        "pageCount": 1
     }
 }
 ```
 
+
+### Collection pagination
+
+When dealing with a lot of database entries, you may want to paginate results to retrieve them chunk by chunk. \
+The package provides the `ApiPagination` class to help with that feature.
+
+It requires two database queries: one to count the total number of results, and another to fetch the requested results:
+
+```php
+use Mediagone\Symfony\EasyApi\EasyApi;
+use Mediagone\Symfony\EasyApi\Payloads\ApiPayload;
+use Mediagone\Symfony\EasyApi\Payloads\ApiPayload200Success;
+use Mediagone\Symfony\EasyApi\Request\ApiPagination;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+
+#[Route('/api/things/{requestedPage}', name:'api_things_list')]
+public function __invoke(int $requestedPage = 1, ThingRepository $thingRepository): Response
+{
+    return $easyApi->response(static function () use ($requestedPage, $thingRepository) : ApiPayload {
+        // Count the total number of Things in the db
+        $thingsCount = $thingRepository->countAll();
+        
+        // Create a pagination object
+        $pagination = ApiPagination::create($requestedPage, 5, $thingsCount);
+        
+        // Query the page's results
+        $things = $thingRepository->findAllPaginated($pagination);
+        
+        return ApiPayload200Success::createWithArrayResult($things, $pagination);
+    }
+}
+```
+
+Assuming that you have 93 rows in your database and you are requesting the 2nd page of 5 results, you'll receive the following JSON response:
+```json
+{
+    "success": true,
+    "status": "ok",
+    "statusCode": 200,
+    "data": {
+        "results": [
+            { "id": 6, "name": "6th thing" },
+            { "id": 7, "name": "7th thing" },
+            { "id": 8, "name": "8th thing" },
+            { "id": 9, "name": "9th thing" },
+            { "id": 10, "name": "10th thing" }
+        ],
+        "resultsCount": 5,
+        "resultsCountTotal": 93,
+        "page": 2,
+        "pageCount": 19
+    }
+}
+```
 
 
 ## License
