@@ -72,7 +72,7 @@ final class ApiPayload201Created implements ApiPayload
         return [
             'success' => true,
             'status' => 'created',
-            'status_code' => 201,
+            'statusCode' => 201,
             'payload' => $this->result,
         ];
     }
