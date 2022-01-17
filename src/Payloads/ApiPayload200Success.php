@@ -76,7 +76,7 @@ final class ApiPayload200Success implements ApiPayload
             'success' => true,
             'status' => 'ok',
             'statusCode' => 200,
-            'data' => $this->result,
+            'payload' => $this->result,
         ];
     }
     

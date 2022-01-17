@@ -74,7 +74,7 @@ final class ApiPayload202Accepted implements ApiPayload
             'success' => true,
             'status' => 'accepted',
             'status_code' => 202,
-            'data' => $this->result,
+            'payload' => $this->result,
         ];
     }
     
