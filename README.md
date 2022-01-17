@@ -92,7 +92,7 @@ In case of success, the previous controller will return the following JSON objec
     "success": true,
     "status": "ok",
     "statusCode": 200,
-    "data": {
+    "payload": {
         "result": {
             "id": 1,
             "name": "First thing"
@@ -144,7 +144,7 @@ It will result in a slightly different JSON object:
     "success": true,
     "status": "ok",
     "statusCode": 200,
-    "data": {
+    "payload": {
         "results": [
             { "id": 1, "name": "First thing" },
             { "id": 2, "name": "Second thing" },
@@ -198,7 +198,7 @@ Assuming that you have 93 rows in your database and you are requesting the 2nd p
     "success": true,
     "status": "ok",
     "statusCode": 200,
-    "data": {
+    "payload": {
         "results": [
             { "id": 6, "name": "6th thing" },
             { "id": 7, "name": "7th thing" },
