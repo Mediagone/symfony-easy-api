@@ -50,7 +50,7 @@ final class ApiPayload204NoContent implements ApiPayload
         return [
             'success' => true,
             'status' => 'no_content',
-            'status_code' => 204,
+            'statusCode' => 204,
         ];
     }
     
