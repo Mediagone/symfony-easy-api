@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Tests\Mediagone\Symfony\EasyApi;
+namespace Tests\Mediagone\Symfony\EasyApi\Request;
 
 use InvalidArgumentException;
 use Mediagone\Symfony\EasyApi\EasyApi;
