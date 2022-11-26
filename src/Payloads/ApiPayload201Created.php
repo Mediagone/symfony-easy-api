@@ -26,33 +26,36 @@ final class ApiPayload201Created implements ApiPayload
     
     private ApiResult $result;
     
+    private array $headers;
+    
     
     
     //========================================================================================================
     // Constructors
     //========================================================================================================
     
-    private function __construct(ApiResult $result)
+    private function __construct(ApiResult $result, array $headers = [])
     {
         $this->result = $result;
+        $this->headers = $headers;
     }
     
     
-    public static function create() : self
+    public static function create(array $headers = []) : self
     {
-        return new self(ApiResultNull::create());
+        return new self(ApiResultNull::create(), $headers);
     }
     
     
-    public static function createWithSingleResult($result) : self
+    public static function createWithSingleResult($result, array $headers = []) : self
     {
-        return new self(ApiResultSingle::create($result));
+        return new self(ApiResultSingle::create($result), $headers);
     }
     
     
-    public static function createWithArrayResult(array $results, ?ApiPagination $paginator = null) : self
+    public static function createWithArrayResult(array $results, ?ApiPagination $paginator = null, array $headers = []) : self
     {
-        return new self(ApiResultCollection::create($results, $paginator));
+        return new self(ApiResultCollection::create($results, $paginator), $headers);
     }
     
     
@@ -75,6 +78,12 @@ final class ApiPayload201Created implements ApiPayload
             'statusCode' => 201,
             'payload' => $this->result,
         ];
+    }
+    
+    
+    public function getHeaders() : array
+    {
+        return $this->headers;
     }
     
     

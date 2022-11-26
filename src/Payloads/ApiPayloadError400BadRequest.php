@@ -12,14 +12,14 @@ use Mediagone\Symfony\EasyApi\Errors\ApiBadRequestError;
 final class ApiPayloadError400BadRequest extends ApiPayloadError
 {
     
-    public static function create(string $errorKey, string $errorMessage) : self
+    public static function create(string $errorKey, string $errorMessage, array $headers = []) : self
     {
-        return new self("bad_request.$errorKey", $errorMessage, 400, 'bad_request');
+        return new self("bad_request.$errorKey", $errorMessage, 400, 'bad_request', $headers);
     }
     
-    public static function createFromException(ApiBadRequestError $error) : self
+    public static function createFromException(ApiBadRequestError $error, array $headers = []) : self
     {
-        return self::create($error->getKey(), $error->getMessage());
+        return self::create($error->getKey(), $error->getMessage(), $headers);
     }
     
 }

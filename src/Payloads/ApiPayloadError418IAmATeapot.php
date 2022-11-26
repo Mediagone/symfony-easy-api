@@ -10,9 +10,9 @@ namespace Mediagone\Symfony\EasyApi\Payloads;
 final class ApiPayloadError418IAmATeapot extends ApiPayloadError
 {
     
-    public static function create(string $type) : self
+    public static function create(array $headers = []) : self
     {
-        return new self('i_am_a_teapot', "I'm a teapot", 418, 'i_am_a_teapot');
+        return new self('i_am_a_teapot', "I'm a teapot", 418, 'i_am_a_teapot', $headers);
     }
     
 }

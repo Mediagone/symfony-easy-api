@@ -19,9 +19,9 @@ namespace Mediagone\Symfony\EasyApi\Payloads;
 final class ApiPayloadError401Unauthorized extends ApiPayloadError
 {
     
-    public static function create(string $errorMessage) : self
+    public static function create(string $errorMessage, array $headers = []) : self
     {
-        return new self('unauthorized', $errorMessage, 401, 'unauthorized');
+        return new self('unauthorized', $errorMessage, 401, 'unauthorized', $headers);
     }
     
 }

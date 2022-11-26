@@ -7,4 +7,5 @@ interface ApiPayload
 {
     public function getCode() : int;
     public function getData() : array;
+    public function getHeaders() : array;
 }

@@ -187,4 +187,27 @@ final class EasyApiTest extends TestCase
     }
     
     
+    public function test_can_define_default_headers() : void
+    {
+        $easyApi = new EasyApi(['Accept-Charset' => 'utf-8']);
+        
+        /** @var JsonResponse $response */
+        $response = $easyApi->response(function () {
+            return ApiPayload200Success::create();
+        });
+        self::assertInstanceOf(JsonResponse::class, $response);
+        self::assertSame(200, $response->getStatusCode());
+        self::assertSame('utf-8', $response->headers->get('Accept-Charset'));
+        
+        /** @var JsonResponse $response */
+        $response = $easyApi->response(function () {
+            return ApiPayload201Created::create();
+        });
+        self::assertInstanceOf(JsonResponse::class, $response);
+        self::assertSame(201, $response->getStatusCode());
+        self::assertSame('utf-8', $response->headers->get('Accept-Charset'));
+    }
+    
+    
+    
 }

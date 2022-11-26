@@ -17,9 +17,9 @@ namespace Mediagone\Symfony\EasyApi\Payloads;
 final class ApiPayloadError404NotFound extends ApiPayloadError
 {
     
-    public static function create(string $errorMessage) : self
+    public static function create(string $errorMessage, array $headers = []) : self
     {
-        return new self('not_found', $errorMessage, 404, 'not_found');
+        return new self('not_found', $errorMessage, 404, 'not_found', $headers);
     }
     
 }

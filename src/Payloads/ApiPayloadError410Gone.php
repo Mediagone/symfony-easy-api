@@ -20,9 +20,9 @@ namespace Mediagone\Symfony\EasyApi\Payloads;
 final class ApiPayloadError410Gone extends ApiPayloadError
 {
     
-    public static function create(string $errorKey, string $errorMessage) : self
+    public static function create(string $errorKey, string $errorMessage, array $headers = []) : self
     {
-        return new self($errorKey, $errorMessage, 410, 'gone');
+        return new self($errorKey, $errorMessage, 410, 'gone', $headers);
     }
     
 }

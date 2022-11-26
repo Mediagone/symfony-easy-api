@@ -19,18 +19,26 @@ namespace Mediagone\Symfony\EasyApi\Payloads;
 final class ApiPayload204NoContent implements ApiPayload
 {
     //========================================================================================================
+    // Properties
+    //========================================================================================================
+    
+    private array $headers;
+    
+    
+    
+    //========================================================================================================
     // Constructors
     //========================================================================================================
     
-    private function __construct()
+    private function __construct(array $headers = [])
     {
-        
+        $this->headers = $headers;
     }
     
     
-    public static function create() : self
+    public static function create(array $headers = []) : self
     {
-        return new self();
+        return new self($headers);
     }
     
     
@@ -52,6 +60,12 @@ final class ApiPayload204NoContent implements ApiPayload
             'status' => 'no_content',
             'statusCode' => 204,
         ];
+    }
+    
+    
+    public function getHeaders() : array
+    {
+        return $this->headers;
     }
     
     

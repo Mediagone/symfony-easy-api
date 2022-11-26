@@ -13,9 +13,9 @@ namespace Mediagone\Symfony\EasyApi\Payloads;
 final class ApiPayloadError415UnsupportedMediaType extends ApiPayloadError
 {
     
-    public static function create(string $type) : self
+    public static function create(string $type, array $headers = []) : self
     {
-        return new self('unsupported_media_type', "Unsupported media type ($type)", 415, 'unsupported_media_type');
+        return new self('unsupported_media_type', "Unsupported media type ($type)", 415, 'unsupported_media_type', $headers);
     }
     
 }

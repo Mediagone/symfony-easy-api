@@ -19,9 +19,9 @@ namespace Mediagone\Symfony\EasyApi\Payloads;
 final class ApiPayloadError403Forbidden extends ApiPayloadError
 {
     
-    public static function create(string $errorMessage) : self
+    public static function create(string $errorMessage, array $headers = []) : self
     {
-        return new self('forbidden', $errorMessage, 403, 'forbidden');
+        return new self('forbidden', $errorMessage, 403, 'forbidden', $headers);
     }
     
 }

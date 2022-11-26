@@ -15,9 +15,9 @@ namespace Mediagone\Symfony\EasyApi\Payloads;
 final class ApiPayloadError501NotImplemented extends ApiPayloadError
 {
     
-    public static function create() : self
+    public static function create(array $headers = []) : self
     {
-        return new self('not_implemented', "The requested functionality is not implemented.", 501, 'not_implemented');
+        return new self('not_implemented', "The requested functionality is not implemented.", 501, 'not_implemented', $headers);
     }
     
 }

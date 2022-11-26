@@ -19,9 +19,9 @@ namespace Mediagone\Symfony\EasyApi\Payloads;
 final class ApiPayloadError409Conflict extends ApiPayloadError
 {
     
-    public static function create(string $errorKey, string $errorMessage) : self
+    public static function create(string $errorKey, string $errorMessage, array $headers = []) : self
     {
-        return new self($errorKey, $errorMessage, 409, 'conflict');
+        return new self($errorKey, $errorMessage, 409, 'conflict', $headers);
     }
     
 }

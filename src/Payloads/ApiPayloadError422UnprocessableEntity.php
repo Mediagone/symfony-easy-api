@@ -14,9 +14,9 @@ namespace Mediagone\Symfony\EasyApi\Payloads;
 final class ApiPayloadError422UnprocessableEntity extends ApiPayloadError
 {
     
-    public static function create(string $errorMessage) : self
+    public static function create(string $errorMessage, array $headers = []) : self
     {
-        return new self('unprocessable_entity', $errorMessage, 422, 'Unprocessable entity');
+        return new self('unprocessable_entity', $errorMessage, 422, 'Unprocessable entity', $headers);
     }
     
 }
