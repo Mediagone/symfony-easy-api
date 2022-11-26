@@ -26,6 +26,7 @@ final class ApiResultNull implements ApiResult
     // Constructors
     //========================================================================================================
     
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return null;

@@ -34,6 +34,7 @@ final class ApiResultSingle implements ApiResult
     // Constructors
     //========================================================================================================
     
+    #[\ReturnTypeWillChange]
     public function jsonSerialize()
     {
         return [
