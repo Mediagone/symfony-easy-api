@@ -51,13 +51,13 @@ final class EasyApiTest extends TestCase
         self::assertJson($response->getContent());
     
         $data = json_decode($response->getContent());
-        self::assertObjectHasAttribute('success', $data);
+        self::assertObjectHasProperty('success', $data);
         self::assertTrue($data->success);
-        self::assertObjectHasAttribute('status', $data);
+        self::assertObjectHasProperty('status', $data);
         self::assertSame($responseMessage, $data->status);
-        self::assertObjectHasAttribute('statusCode', $data);
+        self::assertObjectHasProperty('statusCode', $data);
         self::assertSame($responseCode, $data->statusCode);
-        self::assertObjectHasAttribute('payload', $data);
+        self::assertObjectHasProperty('payload', $data);
         self::assertNull($data->payload);
     }
     
@@ -85,17 +85,17 @@ final class EasyApiTest extends TestCase
         self::assertJson($response->getContent());
         
         $data = json_decode($response->getContent());
-        self::assertObjectHasAttribute('success', $data);
+        self::assertObjectHasProperty('success', $data);
         self::assertTrue($data->success);
-        self::assertObjectHasAttribute('status', $data);
+        self::assertObjectHasProperty('status', $data);
         self::assertSame($responseMessage, $data->status);
-        self::assertObjectHasAttribute('statusCode', $data);
+        self::assertObjectHasProperty('statusCode', $data);
         self::assertSame($responseCode, $data->statusCode);
-        self::assertObjectHasAttribute('payload', $data);
+        self::assertObjectHasProperty('payload', $data);
         self::assertIsObject($data->payload);
-        self::assertObjectHasAttribute('result', $data->payload);
+        self::assertObjectHasProperty('result', $data->payload);
         self::assertIsObject($data->payload->result);
-        self::assertObjectHasAttribute('foo', $data->payload->result);
+        self::assertObjectHasProperty('foo', $data->payload->result);
         self::assertSame('bar', $data->payload->result->foo);
     }
     
@@ -126,27 +126,27 @@ final class EasyApiTest extends TestCase
         self::assertJson($response->getContent());
         
         $data = json_decode($response->getContent());
-        self::assertObjectHasAttribute('success', $data);
+        self::assertObjectHasProperty('success', $data);
         self::assertTrue($data->success);
-        self::assertObjectHasAttribute('status', $data);
+        self::assertObjectHasProperty('status', $data);
         self::assertSame($responseMessage, $data->status);
-        self::assertObjectHasAttribute('statusCode', $data);
+        self::assertObjectHasProperty('statusCode', $data);
         self::assertSame($responseCode, $data->statusCode);
-        self::assertObjectHasAttribute('payload', $data);
+        self::assertObjectHasProperty('payload', $data);
         self::assertIsObject($data->payload);
         
-        self::assertObjectHasAttribute('results', $data->payload);
+        self::assertObjectHasProperty('results', $data->payload);
         self::assertIsArray($data->payload->results);
-        self::assertObjectHasAttribute('resultsCount', $data->payload);
+        self::assertObjectHasProperty('resultsCount', $data->payload);
         self::assertSame(count($objs), $data->payload->resultsCount);
-        self::assertObjectHasAttribute('resultsCountTotal', $data->payload);
+        self::assertObjectHasProperty('resultsCountTotal', $data->payload);
         self::assertSame(count($objs), $data->payload->resultsCountTotal);
-        self::assertObjectHasAttribute('page', $data->payload);
+        self::assertObjectHasProperty('page', $data->payload);
         self::assertSame(1, $data->payload->page);
-        self::assertObjectHasAttribute('pageCount', $data->payload);
+        self::assertObjectHasProperty('pageCount', $data->payload);
         self::assertSame(1, $data->payload->pageCount);
         foreach ($objs as $key => $item) {
-            self::assertObjectHasAttribute('name', $data->payload->results[$key]);
+            self::assertObjectHasProperty('name', $data->payload->results[$key]);
             self::assertSame($item['name'], $data->payload->results[$key]->name);
         }
     }
