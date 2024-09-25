@@ -53,7 +53,7 @@ abstract class ApiPayloadError implements ApiPayload
             'status' => $this->status,
             'statusCode' => $this->statusCode,
             'error' => $this->errorKey,
-            'error_description' => $this->errorDescription,
+            'errorDescription' => $this->errorDescription,
         ];
     }
     
