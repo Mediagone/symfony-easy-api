@@ -105,7 +105,8 @@ Or an error response:
     "status": "not_found",
     "statusCode": 404,
     "error": "not_found",
-    "error_description": "Thing not found (id: 1)"
+    "errorDescription": "Thing not found (id: 1)",
+    "errorCode": 0
 }
 ```
 
