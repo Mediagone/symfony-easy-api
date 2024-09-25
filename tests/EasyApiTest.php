@@ -172,6 +172,13 @@ final class EasyApiTest extends TestCase
         
         self::assertInstanceOf(JsonResponse::class, $response);
         self::assertSame(400, $response->getStatusCode());
+        $content = json_decode($response->getContent(), false, 512, JSON_THROW_ON_ERROR);
+        self::assertFalse($content->success);
+        self::assertSame('bad_request', $content->status);
+        self::assertSame(400, $content->statusCode);
+        self::assertSame('bad_request.some_request_error', $content->error);
+        self::assertSame('The callback must return an ApiPayload instance.', $content->errorDescription);
+        self::assertSame(0, $content->errorCode);
     }
     
     
@@ -184,6 +191,32 @@ final class EasyApiTest extends TestCase
         
         self::assertInstanceOf(JsonResponse::class, $response);
         self::assertSame(500, $response->getStatusCode());
+        $content = json_decode($response->getContent(), false, 512, JSON_THROW_ON_ERROR);
+        self::assertFalse($content->success);
+        self::assertSame('server_error', $content->status);
+        self::assertSame(500, $content->statusCode);
+        self::assertSame('server_error', $content->error);
+        self::assertSame('Unexpected server error: Oops, something happened.', $content->errorDescription);
+        self::assertSame(0, $content->errorCode);
+    }
+    
+    
+    public function test_can_handle_error_with_code() : void
+    {
+        $easyApi = new EasyApi();
+        $response = $easyApi->response(function() {
+            throw new LogicException('Oops, something happened.', 123);
+        });
+        
+        self::assertInstanceOf(JsonResponse::class, $response);
+        self::assertSame(500, $response->getStatusCode());
+        $content = json_decode($response->getContent(), false, 512, JSON_THROW_ON_ERROR);
+        self::assertFalse($content->success);
+        self::assertSame('server_error', $content->status);
+        self::assertSame(500, $content->statusCode);
+        self::assertSame('server_error', $content->error);
+        self::assertSame('Unexpected server error: Oops, something happened.', $content->errorDescription);
+        self::assertSame(123, $content->errorCode);
     }
     
     

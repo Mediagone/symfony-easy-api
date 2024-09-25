@@ -15,6 +15,8 @@ abstract class ApiPayloadError implements ApiPayload
     
     private string $errorKey;
     
+    private int $errorCode;
+    
     private string $errorDescription;
     
     private array $headers;
@@ -25,11 +27,12 @@ abstract class ApiPayloadError implements ApiPayload
     // Constructor
     //========================================================================================================
     
-    protected function __construct(string $errorKey, string $errorDescription, int $statusCode, string $status, array $headers = [])
+    protected function __construct(string $errorKey, string $errorDescription, int $statusCode, string $status, array $headers = [], int $errorCode = 0)
     {
         $this->status = $status;
         $this->statusCode = $statusCode;
         $this->errorKey = $errorKey;
+        $this->errorCode = $errorCode;
         $this->errorDescription = $errorDescription;
         $this->headers = $headers;
     }
@@ -54,6 +57,7 @@ abstract class ApiPayloadError implements ApiPayload
             'statusCode' => $this->statusCode,
             'error' => $this->errorKey,
             'errorDescription' => $this->errorDescription,
+            'errorCode' => $this->errorCode,
         ];
     }
     
