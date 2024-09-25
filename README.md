@@ -46,10 +46,10 @@ This package provides several classes to handle API requests and return structur
 
 ## Examples
 
-The easiest way to build an API controller is to use the `EasyApi` class that will do error handling for you, however you can do it by hand if you prefer.
+The easiest way to build an API controller is to use the `EasyApi` class and wrap the controller code in an anonymous function, to benefit from automatic error handling.
 
 
-### Entity instance API endpoint
+### 1. Entity instance API endpoint
 
 The `EasyApi->response` method accepts any callable argument that returns an `ApiPayload` instance.
 
@@ -73,8 +73,12 @@ final class ApiEndpointController
             {
                 $thing = $thingRepository->find($thingId);
                 if ($thing === null) {
+                    // Explicit "not found" error response's payload
                     return ApiPayloadError404NotFound::create('Thing not found (id: '.$thingId.')');
                 }
+                
+                // Any uncatched exception would be automatically converted into an ApiPayloadError500ServerError response's payload.
+                //throw new LogicException('Oops, something happened.');
                 
                 return ApiPayload200Success::createWithSingleResult($thing);
             }
@@ -98,7 +102,7 @@ In case of success, the previous controller will return the following JSON objec
     }
 }
 ```
-Or an error response:
+Or the "not found" response:
 ```json
 {
     "success": false,
@@ -106,14 +110,14 @@ Or an error response:
     "statusCode": 404,
     "error": "not_found",
     "errorDescription": "Thing not found (id: 1)",
-    "errorCode": 1234
+    "errorCode": 0
 }
 ```
-_Note: `errorCode` is the internal error code of the PHP exception (0 by default). You can generally define it by passing an additional argument to the constructor: `throw new LogicException('Oops, something happened.', 1234);`.
+_Note: `errorCode` is the internal error's code of the PHP exception (0 by default). You can generally define it by passing an additional integer argument to the constructor, eg. `throw new LogicException('Oops, something happened.', 1234);`._
 
 
 
-### Entity collection API endpoint
+### 2. Entity collection API endpoint
 
 You can also return multiple results by using the `ApiPayload200Success::createWithArrayResult` factory method:
 
@@ -159,7 +163,7 @@ It will result in a slightly different JSON object:
 ```
 
 
-### Collection pagination
+### 3. Collection pagination
 
 When dealing with a lot of database entries, you may want to paginate results to retrieve them chunk by chunk. \
 The package provides the `ApiPagination` class to help with that feature.
