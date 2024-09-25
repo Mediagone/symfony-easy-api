@@ -109,10 +109,7 @@ Or an error response:
     "errorCode": 1234
 }
 ```
-_Note: `errorCode` is the internal error code of the PHP exception. You can generally define it by passing an additional argument to the constructor, eg. :_
-```php
-throw new LogicException('Oops, something happened.', 1234);
-```
+_Note: `errorCode` is the internal error code of the PHP exception (0 by default). You can generally define it by passing an additional argument to the constructor: `throw new LogicException('Oops, something happened.', 1234);`.
 
 
 
