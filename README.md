@@ -106,8 +106,12 @@ Or an error response:
     "statusCode": 404,
     "error": "not_found",
     "errorDescription": "Thing not found (id: 1)",
-    "errorCode": 0
+    "errorCode": 1234
 }
+```
+_Note: `errorCode` is the internal error code of the PHP exception. You can generally define it by passing an additional argument to the constructor, eg. :_
+```php
+throw new LogicException('Oops, something happened.', 1234);
 ```
 
 
