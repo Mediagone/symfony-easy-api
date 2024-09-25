@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use function count;
 use function json_decode;
+use function property_exists;
 
 
 /**
@@ -35,12 +36,6 @@ final class EasyApiTest extends TestCase
      */
     public function test_can_return_a_payload($responseObject, $responseCode, $responseMessage) : void
     {
-        // $responseObject = ApiPayload200Success::create();
-    
-        /*ApiResultCollection::fromArray([1,2,'aa'])*/
-        //$req = Request::create('http://localhost:8000/current-url?param=value');
-        //$paginator = ApiPagination::from(22, 10, 2);
-        
         $easyApi = new EasyApi();
         $response = $easyApi->response(function() use($responseObject) {
             return $responseObject;
@@ -50,14 +45,14 @@ final class EasyApiTest extends TestCase
         self::assertSame($responseCode, $response->getStatusCode());
         self::assertJson($response->getContent());
     
-        $data = json_decode($response->getContent());
-        self::assertObjectHasProperty('success', $data);
+        $data = json_decode($response->getContent(), false, 512, JSON_THROW_ON_ERROR);
+        self::assertTrue(property_exists($data, 'success'));
         self::assertTrue($data->success);
-        self::assertObjectHasProperty('status', $data);
+        self::assertTrue(property_exists($data, 'status'));
         self::assertSame($responseMessage, $data->status);
-        self::assertObjectHasProperty('statusCode', $data);
+        self::assertTrue(property_exists($data, 'statusCode'));
         self::assertSame($responseCode, $data->statusCode);
-        self::assertObjectHasProperty('payload', $data);
+        self::assertTrue(property_exists($data, 'payload'));
         self::assertNull($data->payload);
     }
     
@@ -84,18 +79,18 @@ final class EasyApiTest extends TestCase
         self::assertSame($responseCode, $response->getStatusCode());
         self::assertJson($response->getContent());
         
-        $data = json_decode($response->getContent());
-        self::assertObjectHasProperty('success', $data);
+        $data = json_decode($response->getContent(), false, 512, JSON_THROW_ON_ERROR);
+        self::assertTrue(property_exists($data, 'success'));
         self::assertTrue($data->success);
-        self::assertObjectHasProperty('status', $data);
+        self::assertTrue(property_exists($data, 'status'));
         self::assertSame($responseMessage, $data->status);
-        self::assertObjectHasProperty('statusCode', $data);
+        self::assertTrue(property_exists($data, 'statusCode'));
         self::assertSame($responseCode, $data->statusCode);
-        self::assertObjectHasProperty('payload', $data);
+        self::assertTrue(property_exists($data, 'payload'));
         self::assertIsObject($data->payload);
-        self::assertObjectHasProperty('result', $data->payload);
+        self::assertTrue(property_exists($data->payload, 'result'));
         self::assertIsObject($data->payload->result);
-        self::assertObjectHasProperty('foo', $data->payload->result);
+        self::assertTrue(property_exists($data->payload->result, 'foo'));
         self::assertSame('bar', $data->payload->result->foo);
     }
     
@@ -103,8 +98,8 @@ final class EasyApiTest extends TestCase
     public function responseArrayResultProvider(): iterable
     {
         $objs = [
-            ['name' => 'Result 1'],
-            ['name' => 'Result 2'],
+            ['name' => 'Result 1', 'value' => 1],
+            ['name' => 'Result 2', 'value' => 2],
         ];
         
         yield [$objs, ApiPayload200Success::createWithArrayResult($objs), 200, 'ok'];
@@ -125,29 +120,31 @@ final class EasyApiTest extends TestCase
         self::assertSame($responseCode, $response->getStatusCode());
         self::assertJson($response->getContent());
         
-        $data = json_decode($response->getContent());
-        self::assertObjectHasProperty('success', $data);
+        $data = json_decode($response->getContent(), false, 512, JSON_THROW_ON_ERROR);
+        self::assertTrue(property_exists($data, 'success'));
         self::assertTrue($data->success);
-        self::assertObjectHasProperty('status', $data);
+        self::assertTrue(property_exists($data, 'status'));
         self::assertSame($responseMessage, $data->status);
-        self::assertObjectHasProperty('statusCode', $data);
+        self::assertTrue(property_exists($data, 'statusCode'));
         self::assertSame($responseCode, $data->statusCode);
-        self::assertObjectHasProperty('payload', $data);
+        self::assertTrue(property_exists($data, 'payload'));
         self::assertIsObject($data->payload);
         
-        self::assertObjectHasProperty('results', $data->payload);
+        self::assertTrue(property_exists($data->payload, 'results'));
         self::assertIsArray($data->payload->results);
-        self::assertObjectHasProperty('resultsCount', $data->payload);
+        self::assertTrue(property_exists($data->payload, 'resultsCount'));
         self::assertSame(count($objs), $data->payload->resultsCount);
-        self::assertObjectHasProperty('resultsCountTotal', $data->payload);
+        self::assertTrue(property_exists($data->payload, 'resultsCountTotal'));
         self::assertSame(count($objs), $data->payload->resultsCountTotal);
-        self::assertObjectHasProperty('page', $data->payload);
+        self::assertTrue(property_exists($data->payload, 'page'));
         self::assertSame(1, $data->payload->page);
-        self::assertObjectHasProperty('pageCount', $data->payload);
+        self::assertTrue(property_exists($data->payload, 'pageCount'));
         self::assertSame(1, $data->payload->pageCount);
         foreach ($objs as $key => $item) {
-            self::assertObjectHasProperty('name', $data->payload->results[$key]);
+            self::assertTrue(property_exists($data->payload->results[$key], 'name'));
             self::assertSame($item['name'], $data->payload->results[$key]->name);
+            self::assertTrue(property_exists($data->payload->results[$key], 'value'));
+            self::assertSame($item['value'], $data->payload->results[$key]->value);
         }
     }
     
