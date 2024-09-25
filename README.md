@@ -69,16 +69,18 @@ final class ApiEndpointController
     public function __invoke(int $thingId, EasyApi $easyApi, ThingRepository $thingRepository) : Response
     {
         return $easyApi->response(
-            function() use ($thingId, $thingRepository)
-            {
+            function() use ($thingId, $thingRepository) {
+                // Any uncatched exception would be automatically converted into an ApiPayloadError500ServerError response's payload.
+                if ($thingId < 1) {
+                    throw new LogicException("Invalid `\$thingId` value ($thingId)");
+                }
+                
                 $thing = $thingRepository->find($thingId);
                 if ($thing === null) {
                     // Explicit "not found" error response's payload
                     return ApiPayloadError404NotFound::create('Thing not found (id: '.$thingId.')');
                 }
                 
-                // Any uncatched exception would be automatically converted into an ApiPayloadError500ServerError response's payload.
-                //throw new LogicException('Oops, something happened.');
                 
                 return ApiPayload200Success::createWithSingleResult($thing);
             }
@@ -102,7 +104,7 @@ In case of success, the previous controller will return the following JSON objec
     }
 }
 ```
-Or the "not found" response:
+Or a "not found" response:
 ```json
 {
     "success": false,
@@ -113,7 +115,18 @@ Or the "not found" response:
     "errorCode": 0
 }
 ```
-_Note: `errorCode` is the internal error's code of the PHP exception (0 by default). You can generally define it by passing an additional integer argument to the constructor, eg. `throw new LogicException('Oops, something happened.', 1234);`._
+Or a "server error" response:
+```json
+{
+    "success": false,
+    "status": "server_error",
+    "statusCode": 500,
+    "error": "server_error",
+    "errorDescription": "Unexpected server error: Invalid `$thingId` value (-1)",
+    "errorCode": 0
+}
+```
+_Note: `errorCode` is the internal error's code of the PHP exception (0 by default). You can generally define it by passing an additional integer argument to the constructor, eg. `throw new LogicException("Invalid `\$thingId` value ($thingId)", 1234);`._
 
 
 
